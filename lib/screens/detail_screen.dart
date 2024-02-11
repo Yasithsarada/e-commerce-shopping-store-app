@@ -14,9 +14,12 @@ class DetailScreen extends StatefulWidget {
 
 class _DetailScreenState extends State<DetailScreen> {
   int noOfItems = 1;
+  var _isFavorite = true;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    double screenHeight = size.height;
     print(size);
     return Scaffold(
       backgroundColor: widget.product.color,
@@ -51,14 +54,15 @@ class _DetailScreenState extends State<DetailScreen> {
             Stack(
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: size.height * 0.3),
-                  height: 500,
+                  margin: EdgeInsets.only(top: size.height * 0.32),
+                  height: screenHeight * 1.1,
                   alignment: Alignment.bottomCenter,
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30)),
+                    // child:Text("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF"),
                   ),
                 ),
                 Padding(
@@ -160,71 +164,117 @@ class _DetailScreenState extends State<DetailScreen> {
                         ],
                       ),
                       const SizedBox(
-                        height: 20,
-                      ),
-                      RichText(
-                        text: TextSpan(
-                            style: const TextStyle(color: kTextColor),
-                            children: [
-                              TextSpan(
-                                  text: "Description\n",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium!
-                                      .copyWith(fontWeight: FontWeight.bold)),
-                              const WidgetSpan(
-                                child: SizedBox(
-                                    height: 40), // Add space between TextSpans
-                              ),
-                              const TextSpan(
-                                  text:
-                                      "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.")
-                            ]),
+                        height: 15,
                       ),
                       SizedBox(
-                        height: kDefaultPaddin,
+                        height: 97.0,
+                        child: RichText(
+                          text: TextSpan(
+                              style: const TextStyle(color: kTextColor),
+                              children: [
+                                TextSpan(
+                                    text: "Description\n",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium!
+                                        .copyWith(fontWeight: FontWeight.bold)),
+                                const WidgetSpan(
+                                  child: SizedBox(
+                                      height:
+                                          30), // Add space between TextSpans
+                                ),
+                                const TextSpan(
+                                  text:
+                                      " in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                                )
+                              ]),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15,
                       ),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          // SizedBox(
-                          //   width: 40,
-                          //   height: 32,
-                          //   child: OutlinedButton(
-                          //     onPressed: () {},
-                          //     style: ButtonStyle(
-                          //       shape: MaterialStatePropertyAll(
-                          //         RoundedRectangleBorder(
-                          //             borderRadius: BorderRadius.circular(13)),
-                          //       ),
-                          //     ),
-                          //     child: const Icon(Icons.remove),
-                          //   ),
-                          // ),
-                          QuantityCrement(
-                            icon: Icons.remove,
-                            onPress: () {
-                              setState(() {
-                                noOfItems--;
-                              });
-                            },
+                          Row(
+                            children: [
+                              QuantityCrement(
+                                icon: Icons.remove,
+                                onPress: () {
+                                  setState(() {
+                                    noOfItems--;
+                                  });
+                                },
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 4.0),
+                                child: Text(
+                                  noOfItems.toString().padLeft(2, "0"),
+                                  style:
+                                      Theme.of(context).textTheme.headlineSmall,
+                                ),
+                              ),
+                              QuantityCrement(
+                                  icon: Icons.add,
+                                  onPress: () {
+                                    setState(() {
+                                      noOfItems++;
+                                    });
+                                  }),
+                            ],
                           ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 4.0),
-                            child: Text(
-                              noOfItems.toString().padLeft(2, "0"),
-                              style: Theme.of(context).textTheme.headlineSmall,
-                            ),
+                          IconButton(
+                            color: _isFavorite
+                                ? Colors.red
+                                : kDefaultIconDarkColor,
+                            style: ButtonStyle(),
+                            onPressed: () {},
+                            icon: Icon(
+                                _isFavorite
+                                    ? Icons.favorite
+                                    : Icons.favorite_border_outlined,
+                                size: 30),
                           ),
-                          QuantityCrement(
-                              icon: Icons.add,
-                              onPress: () {
-                                setState(() {
-                                  noOfItems++;
-                                });
-                              })
                         ],
-                      )
+                      ),
+                      SizedBox(
+                        height: kDefaultPaddin * 3 / 4,
+                      ),
+                      Row(
+                        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          IconButton.outlined(
+                              iconSize: 30.0,
+                              color: Color(0xFF3D82AE),
+                              style: ButtonStyle(
+                                shape: MaterialStatePropertyAll(
+                                    RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(13))),
+                                padding: MaterialStatePropertyAll(
+                                    EdgeInsets.all(0.0)),
+                              ),
+                              onPressed: () {},
+                              icon: Icon(Icons.shopping_cart_outlined)),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: widget.product.color,
+                                    textStyle: TextStyle(color: Colors.white)),
+                                onPressed: () {},
+                                child: Text(
+                                  "Buy Now",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                )),
+                          )
+                        ],
+                      ),
                     ],
                   ),
                 ),
