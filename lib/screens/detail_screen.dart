@@ -190,7 +190,7 @@ class _DetailScreenState extends State<DetailScreen> {
                               ]),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       Row(
@@ -228,7 +228,7 @@ class _DetailScreenState extends State<DetailScreen> {
                             color: _isFavorite
                                 ? Colors.red
                                 : kDefaultIconDarkColor,
-                            style: ButtonStyle(),
+                            style: const ButtonStyle(),
                             onPressed: () {},
                             icon: Icon(
                                 _isFavorite
@@ -238,7 +238,7 @@ class _DetailScreenState extends State<DetailScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: kDefaultPaddin * 3 / 4,
                       ),
                       Row(
@@ -246,27 +246,27 @@ class _DetailScreenState extends State<DetailScreen> {
                         children: [
                           IconButton.outlined(
                               iconSize: 30.0,
-                              color: Color(0xFF3D82AE),
+                              color: const Color(0xFF3D82AE),
                               style: ButtonStyle(
                                 shape: MaterialStatePropertyAll(
                                     RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(13))),
-                                padding: MaterialStatePropertyAll(
+                                padding: const MaterialStatePropertyAll(
                                     EdgeInsets.all(0.0)),
                               ),
                               onPressed: () {},
-                              icon: Icon(Icons.shopping_cart_outlined)),
-                          SizedBox(
+                              icon: const Icon(Icons.shopping_cart_outlined)),
+                          const SizedBox(
                             width: 20,
                           ),
                           Expanded(
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     backgroundColor: widget.product.color,
-                                    textStyle: TextStyle(color: Colors.white)),
+                                    textStyle: const TextStyle(color: Colors.white)),
                                 onPressed: () {},
-                                child: Text(
+                                child: const Text(
                                   "Buy Now",
                                   style: TextStyle(
                                       color: Colors.white,
