@@ -15,7 +15,7 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Product  ||||||||||||||||||||||||||||| : $product");
+    // print("Product  ||||||||||||||||||||||||||||| : $product");
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
@@ -48,6 +48,8 @@ class ProductCard extends StatelessWidget {
           ),
           Text(
             product.title,
+            // maxLines: 2,
+            overflow: TextOverflow.ellipsis,
             // style: const TextStyle(color: kTextColor),
           ),
           SizedBox(
