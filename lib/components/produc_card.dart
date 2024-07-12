@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_shopping_store/constants.dart';
-import 'package:online_shopping_store/data/Product.dart';
+import 'package:online_shopping_store/data/productData.dart';
+import 'package:online_shopping_store/models/product.dart';
 import 'package:online_shopping_store/screens/detail_screen.dart';
 
 class ProductCard extends StatelessWidget {
@@ -14,6 +15,7 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("Product  ||||||||||||||||||||||||||||| : $product");
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
@@ -31,9 +33,14 @@ class ProductCard extends StatelessWidget {
               // width: 160,
               // height: 180,
               decoration: BoxDecoration(
-                  color: product.color,
-                  borderRadius: BorderRadius.circular(10)),
-              child: Image.asset(product.image),
+                image: DecorationImage(
+                  image: product.images.isEmpty
+                      ? AssetImage('assets/images/noD.png') as ImageProvider
+                      : NetworkImage(product.images[0]),
+                  // fit: BoxFit.fitHeight, // Adjust this as needed
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
             ),
           ),
           SizedBox(
@@ -41,7 +48,7 @@ class ProductCard extends StatelessWidget {
           ),
           Text(
             product.title,
-            style: const TextStyle(color: kTextColor),
+            // style: const TextStyle(color: kTextColor),
           ),
           SizedBox(
             height: 5,

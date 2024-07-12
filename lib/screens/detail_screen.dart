@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:online_shopping_store/components/color_selectionDot.dart';
 import 'package:online_shopping_store/components/quantity_crement.dart';
 import 'package:online_shopping_store/constants.dart';
-import 'package:online_shopping_store/data/Product.dart';
+import 'package:online_shopping_store/data/productData.dart';
+import 'package:online_shopping_store/models/product.dart';
 
 class DetailScreen extends StatefulWidget {
   const DetailScreen({super.key, required this.product});
@@ -22,7 +23,7 @@ class _DetailScreenState extends State<DetailScreen> {
     double screenHeight = size.height;
     print(size);
     return Scaffold(
-      backgroundColor: widget.product.color,
+      // backgroundColor: widget.product.color,
       appBar: AppBar(
           backgroundColor: Colors.transparent,
           leading: IconButton(
@@ -106,7 +107,7 @@ class _DetailScreenState extends State<DetailScreen> {
                         ),
                         Expanded(
                           child: Image.asset(
-                            widget.product.image,
+                            widget.product.images[0],
                             fit: BoxFit.fill,
                           ),
                         )
@@ -263,8 +264,9 @@ class _DetailScreenState extends State<DetailScreen> {
                           Expanded(
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                    backgroundColor: widget.product.color,
-                                    textStyle: const TextStyle(color: Colors.white)),
+                                    // backgroundColor: widget.product.color,
+                                    textStyle:
+                                        const TextStyle(color: Colors.white)),
                                 onPressed: () {},
                                 child: const Text(
                                   "Buy Now",
