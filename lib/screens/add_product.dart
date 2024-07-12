@@ -14,6 +14,7 @@ import 'package:online_shopping_store/components/response_handler.dart';
 import 'package:online_shopping_store/data/model_data.dart';
 import 'package:http/http.dart' as http;
 import 'package:online_shopping_store/global_content.dart';
+import 'package:online_shopping_store/models/category.dart';
 import 'package:online_shopping_store/models/product.dart';
 
 class AddProduct extends StatefulWidget {
@@ -231,6 +232,7 @@ class _AddProductState extends State<AddProduct> {
     setState(() {
       _selectedItem = selectedCat;
     });
+    print("_selectedItem!.id ${_selectedItem!.id}");
   }
 
 // List<XFile> images = await _picker.pickMultiImage()
