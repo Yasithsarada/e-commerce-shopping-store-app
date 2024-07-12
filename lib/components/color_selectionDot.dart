@@ -14,10 +14,10 @@ class ColorSelectionDot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 12.0, right: kDefaultPaddin / 2),
+      margin: const EdgeInsets.only(top: 12.0, right: kDefaultPaddin / 2),
       height: 24,
       width: 24,
-      padding: EdgeInsets.all(2.5),
+      padding: const EdgeInsets.all(2.5),
       decoration: BoxDecoration(
           // color: Colors.black54,
           shape: BoxShape.circle,

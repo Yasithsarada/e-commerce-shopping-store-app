@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:online_shopping_store/constants.dart';
-import 'package:online_shopping_store/data/model_data.dart';
 
 class CategeryCard extends StatelessWidget {
   const CategeryCard({
@@ -29,7 +28,7 @@ class CategeryCard extends StatelessWidget {
             //     .textTheme
             //     .bodyMedium!
             //     .copyWith(fontWeight: FontWeight.bold),
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: const TextStyle(fontWeight: FontWeight.bold),
           ),
           Container(
             margin: const EdgeInsets.only(top: 4.0, bottom: 0.0),
