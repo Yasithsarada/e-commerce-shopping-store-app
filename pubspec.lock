@@ -134,6 +134,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
+  flutter_pannable_rating_bar:
+    dependency: "direct main"
+    description:
+      name: flutter_pannable_rating_bar
+      sha256: a6ba1f474ccb23e1b0b7d0a0ec28bb31c088bad808fd207b536b3cb46cbcaf7a
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.7.2+1"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -328,6 +336,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  loading_animation_widget:
+    dependency: "direct main"
+    description:
+      name: loading_animation_widget
+      sha256: ee3659035528d19145d50cf0107632bf647e7306c88b6a32f35f3bed63f6d728
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.1"
   matcher:
     dependency: transitive
     description:

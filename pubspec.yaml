@@ -43,6 +43,8 @@ dependencies:
   provider: ^6.1.2
   google_sign_in: ^6.2.1
   flutter_simple_treeview: ^3.0.2
+  loading_animation_widget: ^1.2.1
+  flutter_pannable_rating_bar: ^2.7.2+1
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:online_shopping_store/provider/user_provider.dart';
 import 'package:online_shopping_store/screens/add_product.dart';
+import 'package:online_shopping_store/screens/auth_login_screen.dart';
 import 'package:online_shopping_store/screens/home_screen.dart';
 import 'package:online_shopping_store/services/auth_services.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +43,8 @@ ThemeData darkTheme = ThemeData(
   colorScheme: ColorScheme.fromSeed(
       seedColor: Colors.red,
       brightness: Brightness.dark,
-      primary: Colors.amber),
+      primary: Colors.amber,
+      secondary: Colors.white),
 );
 void main() async {
   runApp(MultiProvider(
