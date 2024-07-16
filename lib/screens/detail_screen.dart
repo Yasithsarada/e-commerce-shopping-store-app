@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:online_shopping_store/components/color_selectionDot.dart';
 import 'package:online_shopping_store/components/quantity_crement.dart';
+import 'package:online_shopping_store/components/rating_smallView.dart';
 import 'package:online_shopping_store/constants.dart';
 import 'package:online_shopping_store/data/productData.dart';
 import 'package:online_shopping_store/models/product.dart';
@@ -111,32 +112,6 @@ class _DetailScreenState extends State<DetailScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        // SizedBox(height: 10,)
-                        // Text(
-                        //   "classic handbag",
-                        //   textAlign: TextAlign.start,
-                        //   style: TextStyle(
-                        //       color:
-                        //           Theme.of(context).colorScheme.secondary),
-                        // ),
-
-                        PannableRatingBar(
-                          rate: 5,
-                          onChanged: (value) {},
-                          // onHover: updateRating,
-                          spacing: 20,
-                          items: List.generate(
-                            5,
-                            (index) => const RatingWidget(
-                              selectedColor: Colors.amber,
-                              unSelectedColor: Colors.grey,
-                              child: Icon(
-                                Icons.star,
-                                size: 20,
-                              ),
-                            ),
-                          ),
-                        ),
                         Text(
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
@@ -148,6 +123,10 @@ class _DetailScreenState extends State<DetailScreen> {
                                   color:
                                       Theme.of(context).colorScheme.secondary,
                                   fontWeight: FontWeight.bold),
+                        ),
+                        RatingSamllView(
+                          rating: widget.product.averageRating,
+                          sizeEntered: 20,
                         ),
                         // SizedBox(
                         //   height: 20,
@@ -245,13 +224,13 @@ class _DetailScreenState extends State<DetailScreen> {
                                 style: const TextStyle(color: kTextColor),
                                 children: [
                                   TextSpan(
-                                    text: "Description\n",
+                                    text: "Product Details\n",
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleMedium!
                                         .copyWith(
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                            // fontWeight: FontWeight.bold,w
+                                            ),
                                   ),
                                   const WidgetSpan(
                                     child: SizedBox(

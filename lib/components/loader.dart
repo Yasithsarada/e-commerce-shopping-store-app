@@ -11,7 +11,7 @@ class Loader extends StatelessWidget {
       color: Theme.of(context).colorScheme.secondary,
       // leftDotColor: const Color(0xFF1A1A3F),
       // rightDotColor: const Color(0xFFEA3799),
-      size: 40,
+      size: 40,   
     ));
   }
 }
