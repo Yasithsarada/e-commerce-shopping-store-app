@@ -72,6 +72,7 @@ class Product {
   final String size;
   final String id;
   final double price;
+  final double averageRating;
   final List<String> images;
   // final Color color;
   final int quantity;
@@ -84,6 +85,7 @@ class Product {
     required this.description,
     required this.price,
     required this.size,
+    required this.averageRating,
     required this.id,
     // required this.color,
   });
@@ -99,6 +101,7 @@ class Product {
       // 'color': color.value,
       'quantity': quantity,
       'category': category,
+      'averageRating': averageRating,
     };
   }
 
@@ -131,6 +134,19 @@ class Product {
               ? double.tryParse(map['price'] as String) ?? 0.0
               : (map['price'] as double))
           : 0.0, // Handle null values
+      averageRating: map['averageRating'] != null
+          ? (map['averageRating'] is int
+              ? (map['averageRating'] as int).toDouble()
+              : (map['averageRating'] as double))
+          : 0.0,
+
+      // averageRating: map['averageRating'] != null
+      //     ? (map['averageRating'] is int
+      //         ? map['averageRating'] as double ?? 0.0
+      //         : (map['averageRating'] as double))
+      //     : 0.0, // Handle null values
+      // averageRating:
+      //     map['averageRating'] as double ?? 0.0, // Handle null values
       images: List<String>.from(
           map['images'] as List<dynamic>? ?? []), // Handle null values
       quantity: map['quantity'] as int? ?? 0,

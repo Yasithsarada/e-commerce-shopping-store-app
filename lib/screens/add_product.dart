@@ -186,7 +186,8 @@ class _AddProductState extends State<AddProduct> {
             id: '',
             // color: Colors.cyan,
             quantity: int.parse(quantityController.text),
-            category: _selectedItem!.id);
+            category: _selectedItem!.id,
+            averageRating: 0);
 
         var response = await client.post(
           Uri.http(uri, '/api/products/addProduct'),
