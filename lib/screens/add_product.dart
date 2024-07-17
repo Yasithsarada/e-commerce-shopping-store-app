@@ -16,6 +16,7 @@ import 'package:http/http.dart' as http;
 import 'package:online_shopping_store/global_content.dart';
 import 'package:online_shopping_store/models/category.dart';
 import 'package:online_shopping_store/models/product.dart';
+import 'package:online_shopping_store/screens/test.dart';
 
 class AddProduct extends StatefulWidget {
   const AddProduct({super.key});
@@ -36,6 +37,8 @@ class _AddProductState extends State<AddProduct> {
   List<String> imageUrls = [];
   List<String> imagekeys = [];
   Category? _selectedItem;
+  int currentStep = 0;
+
   Future<void> _uploadImages() async {
     final client = RetryClient(http.Client());
     for (var pickedImage in imagesFileList) {
@@ -244,259 +247,589 @@ class _AddProductState extends State<AddProduct> {
         title: const Text("New product"),
         backgroundColor: Colors.blue[400],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          child: Column(
-            children: [
-              // TextFormField(
-              //     controller: titleController,
-              //     decoration: const InputDecoration(
-              //       border: OutlineInputBorder(),
-              //       hintText: "Add title",
-              //     )),
-              CustomInputField(
-                "Title",
-                Colors.blueGrey.withOpacity(0.1),
-                // Theme.of(context).colorScheme.primary,
-                titleController,
-                false,
-                // prefix: "\$ ",
-                textInputType: TextInputType.text,
-              ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              // ExpansionTile(
-              //   collapsedBackgroundColor: Colors.blueGrey.withOpacity(0.1),
-              //   backgroundColor: Colors.blueGrey.withOpacity(0.05),
-              //   collapsedShape: RoundedRectangleBorder(
-              //     borderRadius: BorderRadius.circular(10),
-              //   ),
-              //   shape: const RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.only(
-              //     topLeft: Radius.circular(15),
-              //     topRight: Radius.circular(15),
-              //   )),
-              //   childrenPadding: const EdgeInsets.only(left: 30),
-              //   title: const Text("category"),
-              //   children: const [
-              //     ListTile(
-              //       title: Text("tag"),
-              //     ),
-              //     ListTile(
-              //       title: Text("tag"),
-              //     ),
-              //   ],
-              // ),
+      // body: SingleChildScrollView(
+      //   child: Padding(
+      //     padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      //     child: Column(
+      //       children: [
+      //         // TextFormField(
+      //         //     controller: titleController,
+      //         //     decoration: const InputDecoration(
+      //         //       border: OutlineInputBorder(),
+      //         //       hintText: "Add title",
+      //         //     )),
+      //         CustomInputField(
+      //           "Title",
+      //           Colors.blueGrey.withOpacity(0.1),
+      //           // Theme.of(context).colorScheme.primary,
+      //           titleController,
+      //           false,
+      //           // prefix: "\$ ",
+      //           textInputType: TextInputType.text,
+      //         ),
+      //         const SizedBox(
+      //           height: 10.0,
+      //         ),
+      //         // ExpansionTile(
+      //         //   collapsedBackgroundColor: Colors.blueGrey.withOpacity(0.1),
+      //         //   backgroundColor: Colors.blueGrey.withOpacity(0.05),
+      //         //   collapsedShape: RoundedRectangleBorder(
+      //         //     borderRadius: BorderRadius.circular(10),
+      //         //   ),
+      //         //   shape: const RoundedRectangleBorder(
+      //         //       borderRadius: BorderRadius.only(
+      //         //     topLeft: Radius.circular(15),
+      //         //     topRight: Radius.circular(15),
+      //         //   )),
+      //         //   childrenPadding: const EdgeInsets.only(left: 30),
+      //         //   title: const Text("category"),
+      //         //   children: const [
+      //         //     ListTile(
+      //         //       title: Text("tag"),
+      //         //     ),
+      //         //     ListTile(
+      //         //       title: Text("tag"),
+      //         //     ),
+      //         //   ],
+      //         // ),
 
-              // const SizedBox(
-              //   height: 15.0,
-              // ),
-              Container(
-                // padding: EdgeInsets.all(8.0),
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.blueGrey.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: ListTile(
-                  title: _selectedItem != null
-                      ? Text(_selectedItem!.name)
-                      : Text("Select Category"),
-                  onTap: () {
-                    showModalBottomSheet(
-                        context: context,
-                        builder: (context) {
-                          return CategorySelectDropDown(
-                            selectCat: setSelectedCategory,
-                          );
-                        });
-                  },
-                ),
-              ),
+      //         // const SizedBox(
+      //         //   height: 15.0,
+      //         // ),
+      //         Container(
+      //           // padding: EdgeInsets.all(8.0),
+      //           width: double.infinity,
+      //           decoration: BoxDecoration(
+      //             color: Colors.blueGrey.withOpacity(0.1),
+      //             borderRadius: BorderRadius.circular(10),
+      //           ),
+      //           child: ListTile(
+      //             title: _selectedItem != null
+      //                 ? Text(_selectedItem!.name)
+      //                 : const Text("Select Category"),
+      //             onTap: () {
+      //               showModalBottomSheet(
+      //                   context: context,
+      //                   builder: (context) {
+      //                     return CategorySelectDropDown(
+      //                       selectCat: setSelectedCategory,
+      //                     );
+      //                   });
+      //             },
+      //           ),
+      //         ),
 
-              // IconButton(
-              //   icon: Icon(Icons.abc_rounded),
-              //   // style: ButtonStyle(backgroundColor: ),
-              //   onPressed: () => print("selectedItem : ${_selectedItem!.id}"),
-              // ),
-              const SizedBox(
-                height: 15.0,
-              ),
-              // Container(
-              //   height: 200, // Define a specific height to ensure proper layout
-              //   child: CategorySelector(),
-              // ),
-              // DropdownMenu(
-              //   // width: ,
-              //   label: const Text("Select Category"),
-              //   leadingIcon: const Icon(Icons.category_outlined),
-              //   // initialSelection: "Category",
-              //   dropdownMenuEntries: categories
-              //       .map<DropdownMenuEntry<String>>((String cate) =>
-              //           DropdownMenuEntry<String>(value: cate, label: cate))
-              //       .toList(),
-              //   onSelected: (value) {
-              //     setState(() {
-              //       dropdownValue = value!;
-              //     });
-              //   },
-              //   width: 300,
-              //   inputDecorationTheme:
-              //       const InputDecorationTheme(border: InputBorder.none),
-              // ),
-              // Row(
-              //   mainAxisSize: MainAxisSize.max,
-              //   children: [
-              //     DropdownMenu(
-              //       // width: ,
-              //       label: const Text("Select Category"),
-              //       leadingIcon: const Icon(Icons.category_outlined),
-              //       // initialSelection: "Category",
-              //       dropdownMenuEntries: categories
-              //           .map<DropdownMenuEntry<String>>((String cate) =>
-              //               DropdownMenuEntry<String>(value: cate, label: cate))
-              //           .toList(),
-              //       onSelected: (value) {
-              //         setState(() {
-              //           dropdownValue = value!;
-              //         });
-              //       },
-              //       inputDecorationTheme:
-              //           const InputDecorationTheme(border: InputBorder.none),
-              //     ),
-              //   ],
-              // ),
+      //         // IconButton(
+      //         //   icon: Icon(Icons.abc_rounded),
+      //         //   // style: ButtonStyle(backgroundColor: ),
+      //         //   onPressed: () => print("selectedItem : ${_selectedItem!.id}"),
+      //         // ),
+      //         const SizedBox(
+      //           height: 15.0,
+      //         ),
+      //         // Container(
+      //         //   height: 200, // Define a specific height to ensure proper layout
+      //         //   child: CategorySelector(),
+      //         // ),
+      //         // DropdownMenu(
+      //         //   // width: ,
+      //         //   label: const Text("Select Category"),
+      //         //   leadingIcon: const Icon(Icons.category_outlined),
+      //         //   // initialSelection: "Category",
+      //         //   dropdownMenuEntries: categories
+      //         //       .map<DropdownMenuEntry<String>>((String cate) =>
+      //         //           DropdownMenuEntry<String>(value: cate, label: cate))
+      //         //       .toList(),
+      //         //   onSelected: (value) {
+      //         //     setState(() {
+      //         //       dropdownValue = value!;
+      //         //     });
+      //         //   },
+      //         //   width: 300,
+      //         //   inputDecorationTheme:
+      //         //       const InputDecorationTheme(border: InputBorder.none),
+      //         // ),
+      //         // Row(
+      //         //   mainAxisSize: MainAxisSize.max,
+      //         //   children: [
+      //         //     DropdownMenu(
+      //         //       // width: ,
+      //         //       label: const Text("Select Category"),
+      //         //       leadingIcon: const Icon(Icons.category_outlined),
+      //         //       // initialSelection: "Category",
+      //         //       dropdownMenuEntries: categories
+      //         //           .map<DropdownMenuEntry<String>>((String cate) =>
+      //         //               DropdownMenuEntry<String>(value: cate, label: cate))
+      //         //           .toList(),
+      //         //       onSelected: (value) {
+      //         //         setState(() {
+      //         //           dropdownValue = value!;
+      //         //         });
+      //         //       },
+      //         //       inputDecorationTheme:
+      //         //           const InputDecorationTheme(border: InputBorder.none),
+      //         //     ),
+      //         //   ],
+      //         // ),
 
-              Container(
-                // padding: EdgeInsets.all(8.0),
-                width: double.infinity,
-                height: 200,
-                decoration: BoxDecoration(
-                  color: Colors.blueGrey.withOpacity(0.15),
-                  borderRadius: BorderRadius.circular(20),
-                  // border: Border.all(
-                  //   style: BorderStyle.solid,
-                  // ),
-                ),
-                child: imagesFileList.isEmpty
-                    ? IconButton(
-                        icon: const Icon(
-                          Icons.add_a_photo_outlined,
-                          size: 60,
-                        ),
-                        onPressed: getImage,
-                      )
-                    : GestureDetector(
-                        onTap: getImage,
-                        // child: ClipRRect(
-                        //   borderRadius: BorderRadius.circular(20),
-                        //   child: Image.file(
-                        //     image2!,
-                        //     fit: BoxFit.cover,
-                        //   ),
-                        // ),
-                        child: ClipRect(
-                          child: CarouselSlider(
-                              items: imagesFileList
-                                  .map((XFile imgFile) => Image.file(
-                                        File(imgFile.path),
-                                        fit: BoxFit.cover,
-                                      ))
-                                  .toList(),
-                              options: CarouselOptions(autoPlay: true)),
-                        )),
+      //         Container(
+      //           // padding: EdgeInsets.all(8.0),
+      //           width: double.infinity,
+      //           height: 200,
+      //           decoration: BoxDecoration(
+      //             color: Colors.blueGrey.withOpacity(0.15),
+      //             borderRadius: BorderRadius.circular(20),
+      //             // border: Border.all(
+      //             //   style: BorderStyle.solid,
+      //             // ),
+      //           ),
+      //           child: imagesFileList.isEmpty
+      //               ? IconButton(
+      //                   icon: const Icon(
+      //                     Icons.add_a_photo_outlined,
+      //                     size: 60,
+      //                   ),
+      //                   onPressed: getImage,
+      //                 )
+      //               : GestureDetector(
+      //                   onTap: getImage,
+      //                   // child: ClipRRect(
+      //                   //   borderRadius: BorderRadius.circular(20),
+      //                   //   child: Image.file(
+      //                   //     image2!,
+      //                   //     fit: BoxFit.cover,
+      //                   //   ),
+      //                   // ),
+      //                   child: ClipRect(
+      //                     child: CarouselSlider(
+      //                         items: imagesFileList
+      //                             .map((XFile imgFile) => Image.file(
+      //                                   File(imgFile.path),
+      //                                   fit: BoxFit.cover,
+      //                                 ))
+      //                             .toList(),
+      //                         options: CarouselOptions(autoPlay: true)),
+      //                   )),
+      //         ),
+      //         const SizedBox(
+      //           height: 15,
+      //         ),
+      //         // TextFormField(
+      //         //   controller: descriptionController,
+      //         //   decoration: const InputDecoration(
+      //         //     border: OutlineInputBorder(),
+      //         //     alignLabelWithHint: true,
+      //         //     labelText: "Description",
+      //         //   ),
+      //         //   minLines: 4,
+      //         //   maxLines: null,
+      //         //   keyboardType: TextInputType.multiline,
+      //         // ),
+      //         CustomInputField(
+      //           maxlines: 4,
+      //           "Description",
+      //           Colors.blueGrey.withOpacity(0.1),
+      //           // Theme.of(context).colorScheme.primary,
+      //           descriptionController,
+      //           false,
+      //           textInputType: TextInputType.text,
+      //         ),
+      //         // const SizedBox(
+      //         //   height: 15,
+      //         // ),
+      //         // TextFormField(
+      //         //   controller: priceController,
+      //         //   decoration: const InputDecoration(
+      //         //       labelText: "Price",
+      //         //       border: OutlineInputBorder(),
+      //         //       prefixText: "\$ "),
+      //         //   keyboardType: TextInputType.number,
+      //         // ),
+      //         const SizedBox(
+      //           height: 15,
+      //         ),
+      //         CustomInputField(
+      //           "Price",
+      //           Colors.blueGrey.withOpacity(0.1),
+      //           // Theme.of(context).colorScheme.primary,
+      //           priceController,
+      //           false,
+      //           prefix: "\$ ",
+      //           textInputType: TextInputType.number,
+      //         ),
+      //         const SizedBox(
+      //           height: 15,
+      //         ),
+      //         // TextFormField(
+      //         //   controller: quantityController,
+      //         //   decoration: const InputDecoration(
+      //         //     labelText: "Quantity",
+      //         //     border: OutlineInputBorder(),
+      //         //   ),
+      //         //   keyboardType: TextInputType.number,
+      //         // ),
+      //         CustomInputField(
+      //           "Quantity",
+      //           Colors.blueGrey.withOpacity(0.1),
+      //           quantityController,
+      //           false,
+      //         ),
+      //         const SizedBox(
+      //           height: 15,
+      //         ),
+      //         SizedBox(
+      //           width: double.infinity,
+      //           child: ElevatedButton(
+      //               style: ButtonStyle(
+      //                   shape: const MaterialStatePropertyAll(
+      //                       RoundedRectangleBorder(
+      //                           borderRadius:
+      //                               BorderRadius.all(Radius.circular(20)))),
+      //                   backgroundColor:
+      //                       MaterialStatePropertyAll(Colors.blue[400])),
+      //               onPressed: () {
+      //                 _addProduct();
+      //                 print(titleController.text);
+      //                 // CollectionReference clref =
+      //                 //     FirebaseFirestore.instance.collection('Product');
+      //                 // clref.add({'title': titleController.text});
+      //               },
+      //               child: const Text("Add product")),
+      //         ),
+      //       ],
+      //     ),
+      //   ),
+      // ),
+      body: Stepper(
+        controlsBuilder: (context, details) {
+          return Row(
+            children: <Widget>[
+              TextButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(Colors.blue)),
+                onPressed: details.onStepContinue,
+                child: const Text('NEXT'),
               ),
-              const SizedBox(
-                height: 15,
-              ),
-              // TextFormField(
-              //   controller: descriptionController,
-              //   decoration: const InputDecoration(
-              //     border: OutlineInputBorder(),
-              //     alignLabelWithHint: true,
-              //     labelText: "Description",
-              //   ),
-              //   minLines: 4,
-              //   maxLines: null,
-              //   keyboardType: TextInputType.multiline,
-              // ),
-              CustomInputField(
-                maxlines: 4,
-                "Description",
-                Colors.blueGrey.withOpacity(0.1),
-                // Theme.of(context).colorScheme.primary,
-                descriptionController,
-                false,
-                textInputType: TextInputType.text,
-              ),
-              // const SizedBox(
-              //   height: 15,
-              // ),
-              // TextFormField(
-              //   controller: priceController,
-              //   decoration: const InputDecoration(
-              //       labelText: "Price",
-              //       border: OutlineInputBorder(),
-              //       prefixText: "\$ "),
-              //   keyboardType: TextInputType.number,
-              // ),
-              const SizedBox(
-                height: 15,
-              ),
-              CustomInputField(
-                "Price",
-                Colors.blueGrey.withOpacity(0.1),
-                // Theme.of(context).colorScheme.primary,
-                priceController,
-                false,
-                prefix: "\$ ",
-                textInputType: TextInputType.number,
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              // TextFormField(
-              //   controller: quantityController,
-              //   decoration: const InputDecoration(
-              //     labelText: "Quantity",
-              //     border: OutlineInputBorder(),
-              //   ),
-              //   keyboardType: TextInputType.number,
-              // ),
-              CustomInputField(
-                "Quantity",
-                Colors.blueGrey.withOpacity(0.1),
-                quantityController,
-                false,
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                    style: ButtonStyle(
-                        shape: const MaterialStatePropertyAll(
-                            RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)))),
-                        backgroundColor:
-                            MaterialStatePropertyAll(Colors.blue[400])),
-                    onPressed: () {
-                      _addProduct();
-                      print(titleController.text);
-                      // CollectionReference clref =
-                      //     FirebaseFirestore.instance.collection('Product');
-                      // clref.add({'title': titleController.text});
-                    },
-                    child: const Text("Add product")),
+              TextButton(
+                style: ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(Colors.blue)),
+                onPressed: details.onStepCancel,
+                child: const Text('EXIT'),
               ),
             ],
-          ),
-        ),
+          );
+        },
+        type: StepperType.horizontal,
+        currentStep: currentStep,
+        onStepCancel: () => currentStep == 0
+            ? null
+            : setState(() {
+                currentStep -= 1;
+              }),
+        onStepContinue: () {
+          bool isLastStep = (currentStep == getSteps().length - 1);
+          if (isLastStep) {
+            //Do something with this information
+          } else {
+            setState(() {
+              currentStep += 1;
+            });
+          }
+        },
+        onStepTapped: (step) => setState(() {
+          currentStep = step;
+        }),
+        steps: getSteps(),
       ),
     );
+  }
+
+  List<Step> getSteps() {
+    return <Step>[
+      Step(
+          state: currentStep > 0 ? StepState.complete : StepState.indexed,
+          isActive: currentStep >= 0,
+          title: const Text("Info"),
+          content: SingleChildScrollView(
+            child: Column(
+              children: [
+                // TextFormField(
+                //     controller: titleController,
+                //     decoration: const InputDecoration(
+                //       border: OutlineInputBorder(),
+                //       hintText: "Add title",
+                //     )),
+                CustomInputField(
+                  "Title",
+                  Colors.blueGrey.withOpacity(0.1),
+                  // Theme.of(context).colorScheme.primary,
+                  titleController,
+                  false,
+                  // prefix: "\$ ",
+                  textInputType: TextInputType.text,
+                ),
+                const SizedBox(
+                  height: 10.0,
+                ),
+                // ExpansionTile(
+                //   collapsedBackgroundColor: Colors.blueGrey.withOpacity(0.1),
+                //   backgroundColor: Colors.blueGrey.withOpacity(0.05),
+                //   collapsedShape: RoundedRectangleBorder(
+                //     borderRadius: BorderRadius.circular(10),
+                //   ),
+                //   shape: const RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.only(
+                //     topLeft: Radius.circular(15),
+                //     topRight: Radius.circular(15),
+                //   )),
+                //   childrenPadding: const EdgeInsets.only(left: 30),
+                //   title: const Text("category"),
+                //   children: const [
+                //     ListTile(
+                //       title: Text("tag"),
+                //     ),
+                //     ListTile(
+                //       title: Text("tag"),
+                //     ),
+                //   ],
+                // ),
+
+                // const SizedBox(
+                //   height: 15.0,
+                // ),
+                Container(
+                  // padding: EdgeInsets.all(8.0),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.blueGrey.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: ListTile(
+                    title: _selectedItem != null
+                        ? Text(_selectedItem!.name)
+                        : const Text("Select Category"),
+                    onTap: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return CategorySelectDropDown(
+                              selectCat: setSelectedCategory,
+                            );
+                          });
+                    },
+                  ),
+                ),
+
+                // IconButton(
+                //   icon: Icon(Icons.abc_rounded),
+                //   // style: ButtonStyle(backgroundColor: ),
+                //   onPressed: () => print("selectedItem : ${_selectedItem!.id}"),
+                // ),
+                const SizedBox(
+                  height: 15.0,
+                ),
+                // Container(
+                //   height: 200, // Define a specific height to ensure proper layout
+                //   child: CategorySelector(),
+                // ),
+                // DropdownMenu(
+                //   // width: ,
+                //   label: const Text("Select Category"),
+                //   leadingIcon: const Icon(Icons.category_outlined),
+                //   // initialSelection: "Category",
+                //   dropdownMenuEntries: categories
+                //       .map<DropdownMenuEntry<String>>((String cate) =>
+                //           DropdownMenuEntry<String>(value: cate, label: cate))
+                //       .toList(),
+                //   onSelected: (value) {
+                //     setState(() {
+                //       dropdownValue = value!;
+                //     });
+                //   },
+                //   width: 300,
+                //   inputDecorationTheme:
+                //       const InputDecorationTheme(border: InputBorder.none),
+                // ),
+                // Row(
+                //   mainAxisSize: MainAxisSize.max,
+                //   children: [
+                //     DropdownMenu(
+                //       // width: ,
+                //       label: const Text("Select Category"),
+                //       leadingIcon: const Icon(Icons.category_outlined),
+                //       // initialSelection: "Category",
+                //       dropdownMenuEntries: categories
+                //           .map<DropdownMenuEntry<String>>((String cate) =>
+                //               DropdownMenuEntry<String>(value: cate, label: cate))
+                //           .toList(),
+                //       onSelected: (value) {
+                //         setState(() {
+                //           dropdownValue = value!;
+                //         });
+                //       },
+                //       inputDecorationTheme:
+                //           const InputDecorationTheme(border: InputBorder.none),
+                //     ),
+                //   ],
+                // ),
+
+                Container(
+                  // padding: EdgeInsets.all(8.0),
+                  width: double.infinity,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    color: Colors.blueGrey.withOpacity(0.15),
+                    borderRadius: BorderRadius.circular(20),
+                    // border: Border.all(
+                    //   style: BorderStyle.solid,
+                    // ),
+                  ),
+                  child: imagesFileList.isEmpty
+                      ? IconButton(
+                          icon: const Icon(
+                            Icons.add_a_photo_outlined,
+                            size: 60,
+                          ),
+                          onPressed: getImage,
+                        )
+                      : GestureDetector(
+                          onTap: getImage,
+                          // child: ClipRRect(
+                          //   borderRadius: BorderRadius.circular(20),
+                          //   child: Image.file(
+                          //     image2!,
+                          //     fit: BoxFit.cover,
+                          //   ),
+                          // ),
+                          child: ClipRect(
+                            child: CarouselSlider(
+                                items: imagesFileList
+                                    .map((XFile imgFile) => Image.file(
+                                          File(imgFile.path),
+                                          fit: BoxFit.cover,
+                                        ))
+                                    .toList(),
+                                options: CarouselOptions(autoPlay: true)),
+                          )),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                // TextFormField(
+                //   controller: descriptionController,
+                //   decoration: const InputDecoration(
+                //     border: OutlineInputBorder(),
+                //     alignLabelWithHint: true,
+                //     labelText: "Description",
+                //   ),
+                //   minLines: 4,
+                //   maxLines: null,
+                //   keyboardType: TextInputType.multiline,
+                // ),
+                CustomInputField(
+                  maxlines: 4,
+                  "Description",
+                  Colors.blueGrey.withOpacity(0.1),
+                  // Theme.of(context).colorScheme.primary,
+                  descriptionController,
+                  false,
+                  textInputType: TextInputType.text,
+                ),
+                // const SizedBox(
+                //   height: 15,
+                // ),
+                // TextFormField(
+                //   controller: priceController,
+                //   decoration: const InputDecoration(
+                //       labelText: "Price",
+                //       border: OutlineInputBorder(),
+                //       prefixText: "\$ "),
+                //   keyboardType: TextInputType.number,
+                // ),
+                const SizedBox(
+                  height: 15,
+                ),
+                CustomInputField(
+                  "Price",
+                  Colors.blueGrey.withOpacity(0.1),
+                  // Theme.of(context).colorScheme.primary,
+                  priceController,
+                  false,
+                  prefix: "\$ ",
+                  textInputType: TextInputType.number,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                // TextFormField(
+                //   controller: quantityController,
+                //   decoration: const InputDecoration(
+                //     labelText: "Quantity",
+                //     border: OutlineInputBorder(),
+                //   ),
+                //   keyboardType: TextInputType.number,
+                // ),
+                CustomInputField(
+                  "Quantity",
+                  Colors.blueGrey.withOpacity(0.1),
+                  quantityController,
+                  false,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      style: ButtonStyle(
+                          shape: const MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)))),
+                          backgroundColor:
+                              MaterialStatePropertyAll(Colors.blue[400])),
+                      onPressed: () {
+                        _addProduct();
+                        print(titleController.text);
+                        // CollectionReference clref =
+                        //     FirebaseFirestore.instance.collection('Product');
+                        // clref.add({'title': titleController.text});
+                      },
+                      child: const Text("Add product")),
+                ),
+              ],
+            ),
+          )),
+      Step(
+        state: currentStep > 1 ? StepState.complete : StepState.indexed,
+        isActive: currentStep >= 1,
+        title: const Text("Address"),
+        content: const Column(
+          children: [
+            CustomInput(
+              hint: "City and State",
+              inputBorder: OutlineInputBorder(),
+            ),
+            CustomInput(
+              hint: "Postal Code",
+              inputBorder: OutlineInputBorder(),
+            ),
+          ],
+        ),
+      ),
+      Step(
+        state: currentStep > 2 ? StepState.complete : StepState.indexed,
+        isActive: currentStep >= 2,
+        title: const Text("Misc"),
+        content: const Column(
+          children: [
+            CustomInput(
+              hint: "Bio",
+              inputBorder: OutlineInputBorder(),
+            ),
+          ],
+        ),
+      ),
+    ];
   }
 }

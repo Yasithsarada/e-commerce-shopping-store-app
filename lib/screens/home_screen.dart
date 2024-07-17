@@ -151,14 +151,18 @@ class _HomeScreenState extends State<HomeScreen> {
           // Padding(
           //   padding: const EdgeInsets.all(16.0),
           //   child: SearchBar(
-          //     hintText: "Search",
+          //     hintText: "Search products",
+          //     hintStyle: MaterialStatePropertyAll(TextStyle(
+          //         fontSize: 15,
+          //         color: Theme.of(context).colorScheme.secondary)),
+          //     surfaceTintColor: MaterialStatePropertyAll(Colors.transparent),
           //     // hintStyle: MaterialStateProperty<TextStyle>(col),
           //     side: const MaterialStatePropertyAll(
           //         const BorderSide(color: Colors.black45)),
           //     shadowColor: const MaterialStatePropertyAll(Colors.transparent),
           //     overlayColor: const MaterialStatePropertyAll(Colors.transparent),
           //     backgroundColor:
-          //         MaterialStatePropertyAll(Color.fromARGB(255, 255, 255, 255)),
+          //         MaterialStatePropertyAll(Colors.blueGrey.withOpacity(0.1)),
           //     // controller: controller,
           //     padding: const MaterialStatePropertyAll<EdgeInsets>(
           //         EdgeInsets.symmetric(horizontal: 16.0)),
@@ -212,12 +216,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   filled: true,
                   fillColor: Colors.blueGrey.withOpacity(0.1),
                   border: const OutlineInputBorder(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
-                      ),
-                      borderSide: BorderSide(
-                          // color: Colors.black12,
-                          )),
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10.0),
+                    ),
+                    // borderSide: BorderSide(
+                    //   color: Colors.transparent,
+                    // )
+                  ),
                   // hintText: hintText,
                   // prefixText: prefix ?? "",
                   // label: Text(
